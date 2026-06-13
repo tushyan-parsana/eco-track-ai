@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { GlassCard } from "@/components/ui/glass-card"
 import { Button } from "@/components/ui/button"
-import { Trophy, Target, Star, Leaf, Medal } from "lucide-react"
+import { Trophy, Target, Star, Leaf } from "lucide-react"
 import { getDashboardData } from "@/lib/actions"
 import Link from "next/link"
 

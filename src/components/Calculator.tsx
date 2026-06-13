@@ -124,10 +124,11 @@ export default function Calculator() {
                 {currentStep === 0 && (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      <label htmlFor="carMiles" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                         Weekly car miles driven
                       </label>
                       <Input 
+                        id="carMiles"
                         type="number" 
                         placeholder="e.g. 150" 
                         value={formData.carMiles}
@@ -135,10 +136,11 @@ export default function Calculator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      <label htmlFor="flights" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                         Flights per year
                       </label>
                       <Input 
+                        id="flights"
                         type="number" 
                         placeholder="e.g. 2" 
                         value={formData.flights}
@@ -151,10 +153,11 @@ export default function Calculator() {
                 {currentStep === 1 && (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      <label htmlFor="electricity" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                         Monthly electricity bill ($)
                       </label>
                       <Input 
+                        id="electricity"
                         type="number" 
                         placeholder="e.g. 100" 
                         value={formData.electricity}
@@ -167,10 +170,11 @@ export default function Calculator() {
                 {currentStep === 2 && (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      <label htmlFor="dietType" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                         Primary Diet Type
                       </label>
                       <select 
+                        id="dietType"
                         className="flex h-10 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-800 dark:bg-slate-950 dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                         value={formData.dietType}
                         onChange={e => setFormData({...formData, dietType: e.target.value})}
@@ -187,10 +191,11 @@ export default function Calculator() {
                 {currentStep === 3 && (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      <label htmlFor="shoppingFrequency" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                         Shopping Frequency for New Items
                       </label>
                       <select 
+                        id="shoppingFrequency"
                         className="flex h-10 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-800 dark:bg-slate-950 dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                         value={formData.shoppingFrequency}
                         onChange={e => setFormData({...formData, shoppingFrequency: e.target.value})}

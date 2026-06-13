@@ -11,7 +11,17 @@ async function getSessionUserId() {
   return session.user.id;
 }
 
-export async function saveFootprint(data: {
+import { z } from "zod";
+
+const footprintSchema = z.object({
+  transport: z.number().min(0),
+  energy: z.number().min(0),
+  food: z.number().min(0),
+  lifestyle: z.number().min(0),
+  total: z.number().min(0),
+});
+
+export async function saveFootprint(inputData: {
   transport: number;
   energy: number;
   food: number;
@@ -19,6 +29,7 @@ export async function saveFootprint(data: {
   total: number;
 }) {
   try {
+    const data = footprintSchema.parse(inputData);
     const userId = await getSessionUserId();
 
     const record = await prisma.footprintRecord.create({

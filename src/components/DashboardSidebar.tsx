@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { BarChart3, LayoutDashboard, Target, Trophy, Settings } from "lucide-react"
+import { LayoutDashboard, Target, Trophy } from "lucide-react"
 import { getDashboardData } from "@/lib/actions"
 
 const navItems = [

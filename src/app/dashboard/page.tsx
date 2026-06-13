@@ -4,7 +4,8 @@ import { getDashboardData } from "@/lib/actions"
 import { GlassCard } from "@/components/ui/glass-card"
 import { Button } from "@/components/ui/button"
 import { ArrowUpRight, TrendingDown, Leaf, Zap, Car } from "lucide-react"
-import DashboardCharts from "@/components/DashboardCharts"
+import dynamic from 'next/dynamic';
+const DashboardCharts = dynamic(() => import("@/components/DashboardCharts"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-800/50 rounded-xl h-[350px] w-full" /> });
 import Link from "next/link"
 
 export default async function DashboardOverview() {
