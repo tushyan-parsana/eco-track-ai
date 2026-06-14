@@ -1,21 +1,48 @@
-"use client"
+"use client";
 
-import { GlassCard } from "@/components/ui/glass-card"
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts"
+/**
+ * @component DashboardCharts
+ * @description Renders the footprint trend area chart and the latest
+ * category breakdown bar chart. Wrapped in React.memo to avoid
+ * unnecessary re-renders when parent state changes.
+ */
 
-export default function DashboardCharts({
-  trendData,
-  categoryData
-}: {
-  trendData: { month: string, footprint: number }[];
-  categoryData: { name: string, value: number }[];
-}) {
+import React from "react";
+import { GlassCard } from "@/components/ui/glass-card";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+} from "recharts";
+
+interface DashboardChartsProps {
+  /** Time-series data for the footprint trend chart. */
+  trendData: { month: string; footprint: number }[];
+  /** Category breakdown for the latest footprint record. */
+  categoryData: { name: string; value: number }[];
+}
+
+function DashboardChartsInner({ trendData, categoryData }: DashboardChartsProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Main Chart */}
+      {/* Trend Chart */}
       <GlassCard variant="dark" className="lg:col-span-2">
         <h3 className="text-lg font-semibold text-white mb-6">Footprint Trend</h3>
-        <div className="h-[300px] w-full">
+        <div
+          className="h-[300px] w-full"
+          role="img"
+          aria-label={
+            trendData.length > 0
+              ? `Carbon footprint trend chart showing ${trendData.length} data points`
+              : "Empty footprint trend chart"
+          }
+        >
           {trendData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={trendData}>
@@ -25,14 +52,40 @@ export default function DashboardCharts({
                     <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="month" stroke="#64748b" tick={{fill: '#64748b'}} axisLine={false} tickLine={false} />
-                <YAxis stroke="#64748b" tick={{fill: '#64748b'}} axisLine={false} tickLine={false} />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px' }}
-                  itemStyle={{ color: '#f8fafc' }}
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#1e293b"
+                  vertical={false}
                 />
-                <Area type="monotone" dataKey="footprint" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorFootprint)" />
+                <XAxis
+                  dataKey="month"
+                  stroke="#64748b"
+                  tick={{ fill: "#64748b" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <YAxis
+                  stroke="#64748b"
+                  tick={{ fill: "#64748b" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#0f172a",
+                    border: "1px solid #1e293b",
+                    borderRadius: "12px",
+                  }}
+                  itemStyle={{ color: "#f8fafc" }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="footprint"
+                  stroke="#3b82f6"
+                  strokeWidth={3}
+                  fillOpacity={1}
+                  fill="url(#colorFootprint)"
+                />
               </AreaChart>
             </ResponsiveContainer>
           ) : (
@@ -46,18 +99,52 @@ export default function DashboardCharts({
       {/* Breakdown Chart */}
       <GlassCard variant="dark" className="lg:col-span-1">
         <h3 className="text-lg font-semibold text-white mb-6">Latest Breakdown</h3>
-        <div className="h-[300px] w-full">
+        <div
+          className="h-[300px] w-full"
+          role="img"
+          aria-label={
+            categoryData.length > 0
+              ? `Category breakdown chart showing emissions by: ${categoryData.map((d) => d.name).join(", ")}`
+              : "Empty category breakdown chart"
+          }
+        >
           {categoryData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={categoryData} layout="vertical" margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" horizontal={true} vertical={false} />
-                <XAxis type="number" hide />
-                <YAxis dataKey="name" type="category" stroke="#64748b" tick={{fill: '#64748b'}} axisLine={false} tickLine={false} width={80} />
-                <Tooltip 
-                  cursor={{fill: '#1e293b'}}
-                  contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px' }}
+              <BarChart
+                data={categoryData}
+                layout="vertical"
+                margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+              >
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#1e293b"
+                  horizontal={true}
+                  vertical={false}
                 />
-                <Bar dataKey="value" fill="#22c55e" radius={[0, 4, 4, 0]} barSize={24} />
+                <XAxis type="number" hide />
+                <YAxis
+                  dataKey="name"
+                  type="category"
+                  stroke="#64748b"
+                  tick={{ fill: "#64748b" }}
+                  axisLine={false}
+                  tickLine={false}
+                  width={80}
+                />
+                <Tooltip
+                  cursor={{ fill: "#1e293b" }}
+                  contentStyle={{
+                    backgroundColor: "#0f172a",
+                    border: "1px solid #1e293b",
+                    borderRadius: "12px",
+                  }}
+                />
+                <Bar
+                  dataKey="value"
+                  fill="#22c55e"
+                  radius={[0, 4, 4, 0]}
+                  barSize={24}
+                />
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -68,5 +155,9 @@ export default function DashboardCharts({
         </div>
       </GlassCard>
     </div>
-  )
+  );
 }
+
+/** Memoised export to avoid re-renders when parent state changes but chart data doesn't. */
+const DashboardCharts = React.memo(DashboardChartsInner);
+export default DashboardCharts;

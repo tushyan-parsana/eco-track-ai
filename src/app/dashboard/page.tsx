@@ -124,8 +124,12 @@ export default async function DashboardOverview() {
                   : "Your emissions have increased. Try to reduce meat consumption or optimize your home energy use this month."}
               </p>
               <div className="flex gap-3">
-                <Button size="sm" className="bg-brand-600 hover:bg-brand-700">Adopt Strategy</Button>
-                <Button size="sm" variant="glass">View Details</Button>
+                <Link href="/dashboard/goals">
+                  <Button size="sm" className="bg-brand-600 hover:bg-brand-700">Adopt Strategy</Button>
+                </Link>
+                <Link href="/calculator">
+                  <Button size="sm" variant="glass">View Details</Button>
+                </Link>
               </div>
             </div>
           </div>
